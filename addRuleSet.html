@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Rule Set</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /* Gaya untuk tombol submit */
+    #submit {
+        display: block;
+        margin: 0 auto;
+        margin-top: 24px; /* Berikan jarak atas dari tombol */
+        background-color: #0072BC;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <div class="toolbar">
+        <h1>Add Rule Set</h1>
+        <div class="toolbar-right">
+        </div>
+    </div>
+
+    <form id="ruleSetForm">
+        <div id="nameField">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+    
+        <div id="conditionField">
+            <label for="condition">Condition:</label>
+            <input type="text" id="condition" name="condition" required>
+        </div>
+    
+        <div id="actionField">
+            <label for="action">Action:</label>
+            <input type="text" id="action" name="action" required>
+        </div>
+
+        <div id="bodySection">
+            <h2>Body</h2>
+            <div id="bodyField">
+                <div id="bodyColumn">
+                    <label for="body">Body:</label>
+                    <input type="text" id="body" name="body" required>
+                </div>
+                <div id="dropdownColumn">
+                    <label for="dropdownMenu">Dropdown Menu:</label>
+                    <select id="dropdownMenu" name="dropdownMenu">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <!-- Tambahkan lebih banyak opsi jika diperlukan -->
+                    </select>
+                </div>
+                <button id="deleteButton">Delete</button>
+            </div>
+            <button id="addBodyData">Add</button>
+        </div>
+
+        <h2>Condition</h2>
+<div id="conditionSection">
+    <div class="condition-row">
+        <input type="text" class="attribute-input" placeholder="Attribute">
+        <select class="operator-dropdown">
+            <option value="=">=</option>
+            <option value="!=">!=</option>
+            <option value="<"><</option>
+            <option value=">">></option>
+        </select>
+        <input type="text" class="label-input" placeholder="Label">
+        <button class="delete-button" onclick="deleteConditionRow(this.parentNode)">Delete</button>
+    </div>
+    </div>
+</div>
+        
+<form id="ruleSetForm">
+    <div id="atributeField">
+        <label for="atribute">Atribute:</label>
+        <input type="text" id="atribute" name="atribute" required>
+    </div>
+
+    <div id="labelField">
+        <label for="label">Label:</label>
+        <input type="text" id="label" name="label" required>
+    </div>
+
+    <div id="typeField">
+        <label for="type">Type:</label>
+        <input type="text" id="type" name="type" required>
+    </div>
+
+    <form id="ruleSetForm">
+        <button id="submit">Submit</button>
+    <script src="addRuleSet.js"></script>
+</body>
+
+</html>
