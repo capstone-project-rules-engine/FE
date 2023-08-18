@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.layout {
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0072BC;
+    letter-spacing: 1px;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+
+.add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white;
+}
+
+.search-icon {
+    margin-right: 5px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+}
+
+/* Gaya daftar data */
+ul.space-y-5 {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Gaya elemen data */
+li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Gaya teks nama */
+p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Gaya teks endpoint */
+p.endpoint {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #666;
+}
+
+/* Gaya wrapper body data */
+div.flex {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Gaya teks nama body */
+p.name {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Gaya teks tipe body */
+p.type {
+    color: #666;
+}
+
+/* Gaya tombol edit dan detail data */
+button.edit,
+button.detail {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+/* Gaya untuk tampilan mode development dan production */
+.environment-mode {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #999;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.burger-menu {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.burger-dropdown {
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.burger-dropdown button {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.burger-dropdown button:hover {
+    background-color: #f1f1f1;
+}
+
+
+#nameField,
+#conditionField,
+#actionField {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+#atributeField,
+#labelField,
+#typeField {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+#bodySection {
+    margin-top: 32px;
+}
+
+#bodyField {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+#bodyColumn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+}
+
+#dropdownColumn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+}
+
+#deleteButton {
+    margin-top: 8px;
+}
+
+#conditionSection {
+    margin-top: 0%;
+    margin-bottom: 16px;
+}
+
+.condition-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 8px 0;
+}

@@ -1,0 +1,92 @@
+/* AddRuleSet.css */
+.layout {
+    padding: 20px;
+  }
+  
+  form {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 12px;
+  }
+  
+  li button {
+    margin-left: 8px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+  
+  li button:hover {
+    background-color: #c0392b;
+  }
+  
+  li input,
+  li select {
+    padding: 8px;
+    width: 150px;
+  }
+  
+  button[type="button"] {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  
+  button[type="button"]:hover {
+    background-color: #2980b9;
+  }
+  
+  button[type="submit"] {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 12px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #27ae60;
+  }
+  
+  .input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .input-row input {
+    margin-right: 8px;
+  }
+  
+  .form-section {
+    margin-bottom: 20px;
+  }
+  
+  .input-col {
+    margin-left: 10px;
+    margin-right: 10px;
+}
