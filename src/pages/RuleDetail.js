@@ -8,35 +8,35 @@ const RuleDetail = () => {
   const [conditions, setConditions] = React.useState()
   const [temp, setTemp] = React.useState()
   const param = useParams()
+  
   React.useEffect(() => {
     getdata()
-
   }, [])
-  React.useEffect(() => {
-    if (data) {
-      getConditions()
-    }
+  // React.useEffect(() => {
+  //   if (data) {
+  //     getConditions()
+  //   }
 
-  }, [data])
+  // }, [data])
   const getdata = async (params) => {
-    const respon = await axios.get(`${process.env.REACT_APP_URL}/api/rule/${param.ruleid}`)
+    const respon = await axios.get(`${process.env.REACT_APP_URL}/api/rule/${param.endpoint}`)
     setData(respon.data)
   }
-  function getConditions() {
-    if (data) {
-      const condition = data[0].rules.map((data) => {
-        return data.conditions
-      })
-      const temp = condition.map((data) => {
-        return data
-      })
-      const set = temp.map((data)=>{
-        return data
-      })
-      setConditions(condition)
-      setTemp(set)
-    }
-  }
+  // function getConditions() {
+  //   if (data) {
+  //     const condition = data[0].rules.map((data) => {
+  //       return data.conditions
+  //     })
+  //     const temp = condition.map((data) => {
+  //       return data
+  //     })
+  //     const set = temp.map((data)=>{
+  //       return data
+  //     })
+  //     setConditions(condition)
+  //     setTemp(set)
+  //   }
+  // }
 
 console.log(data);
 
@@ -50,7 +50,7 @@ console.log(data);
         {
           data && temp ?
             <div>
-              <p>{data[0].name}</p>
+              <p>{data[0]?.name}</p>
               {/* <button onClick={() => handleOnclick(data[0].id)}>
                 delete
               </button> */}
