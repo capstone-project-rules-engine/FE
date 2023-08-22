@@ -17,6 +17,7 @@ const Home = () => {
   async function getRuleset() {
     try {
       const res = await axios.get(`${process.env.REACT_APP_URL}/api/static`);
+      console.log(res.data.db);
       setData(res.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -73,26 +74,14 @@ const Home = () => {
     burgerButton.parentElement.appendChild(dropdown);
   }
 
-  const sampleData = [
-    {
-      number: 1,
-      ruleSet: "Rule Set 1",
-      condition: "Condition 1",
-      action: "Action 1",
-    },
-    {
-      number: 2,
-      ruleSet: "Rule Set 2",
-      condition: "Condition 2",
-      action: "Action 2",
-    },
-    // ... More data
-  ];
 
   function handleSearchChange(event) {
     setSearchInput(event.target.value);
   }
 
+   function handleEdit(params){
+    navigate(`/rule/${params}`)
+  }
   return (
     <Layout>
       <section className="layout">
@@ -129,34 +118,13 @@ const Home = () => {
             </tr>
           </thead>
           <tbody id="tableBody">
-            {sampleData
-              .filter(
-                (data) =>
-                  data.ruleSet
-                    .toLowerCase()
-                    .includes(searchInput.toLowerCase()) ||
-                  data.action
-                    .toLowerCase()
-                    .includes(searchInput.toLowerCase()) ||
-                  data.condition
-                    .toLowerCase()
-                    .includes(searchInput.toLowerCase())
-              )
-              .map((data, index) => (
+            {data?.db?.map((data, index) => (
                 <tr key={index}>
-                  <td>{data.number}</td>
-                  <td>{data.ruleSet}</td>
-                  <td>{data.condition}</td>
-                  <td>{data.action}</td>
-                  <td>
-                    <button
-                      onClick={(event) =>
-                        toggleBurgerMenu(event.currentTarget, index)
-                      }
-                    >
-                      ☰
-                    </button>
-                  </td>
+                  <td>{data.name}</td>
+                  <td>{data.endpoint}</td>
+                  <button onClick={()=>handleEdit(data.endpoint)}>
+                    edit
+                  </button>
                 </tr>
               ))}
           </tbody>

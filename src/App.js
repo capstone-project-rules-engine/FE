@@ -11,7 +11,7 @@ function App() {
       <Route path='/' element={<Home />} />
       <Route path='/addruleset' element={<AddRuleSet />} />
       <Route path='/editruleset/:ruleid' element={<EditRuleSet />} />
-      <Route path='/rule/:ruleid' element={<RuleDetail />} />
+      <Route path='/rule/:endpoint' element={<RuleDetail />} />
     </Routes>
   );
 }
