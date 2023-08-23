@@ -10,7 +10,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/addruleset' element={<AddRuleSet />} />
-      <Route path='/editruleset/:ruleid' element={<EditRuleSet />} />
+      <Route path='/editruleset/:endpoint' element={<EditRuleSet />} />
       <Route path='/rule/:endpoint' element={<RuleDetail />} />
     </Routes>
   );

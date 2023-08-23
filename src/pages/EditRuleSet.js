@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as React from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import Input from '../components/Input';
 import { Layout } from '../components/Layout';
@@ -12,6 +12,7 @@ const EditRuleSet = () => {
     const [data, setData] = React.useState()
     const [isLoading, setIsloading] = React.useState(false)
     const param = useParams()
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
@@ -29,7 +30,7 @@ const EditRuleSet = () => {
         remove: bodyRemove,
     } = useFieldArray({
         control,
-        name: "body",
+        name: "bodies",
     });
     const {
         fields: conditionsFields,
@@ -51,38 +52,44 @@ const EditRuleSet = () => {
 
 
     const onSubmit = (data) => {
-        console.log(data);
-        // toast.promise(
-        //     axios.post(`api/static`, data)
-        //       .then((res) => {
-        //       }),
-        //     {
-        //       ...DEFAULT_TOAST_MESSAGE,
-        //       success: 'Ruleset Successfully Created',
-        //     }
-        //   );
+        setIsloading(true)
+        toast.promise(
+            axios.put(`${process.env.REACT_APP_URL}/updateRuleSet?ruleSetName=${data.endpoint}`, data)
+              .then(() => {
+                setTimeout(() => {
+                    setIsloading(false)
+                    navigate('/')
+                }, 1000);
+              }),
+            {
+              ...DEFAULT_TOAST_MESSAGE,
+              success: 'Ruleset Successfully Edited',
+            }
+          );
 
     }
 
     React.useEffect(() => {
-        getdata()
+        getdata(param.endpoint)
     }, [])
 
     React.useEffect(() => {
         if (data) {
-            console.log(data[0].action);
             reset({
-                name: data[0].name,
-                body: data[0].body,
-                conditions:data[0].conditions,
-                action:[data[0].action]
+                name: data.name,
+                description:data.description,
+                bodies: data.bodies,
+                conditions:data.conditions,
+                action:data.action,
+                rules: data.rules,
+                endpoint : data.endpoint
             })
         }
     }, [data])
     const getdata = async (params) => {
-        const respon = await axios.get(`${process.env.REACT_APP_URL}/api/rule/${param.ruleid}`)
-        console.log(respon.data);
-        setData(respon.data)
+        const respon = await axios.get(`${process.env.REACT_APP_URL}/fetchSpecificRuleSet?ruleSetName=${params}`)
+        console.log(respon.data.details);
+        setData(respon.data.details)
     }
 
 
@@ -92,6 +99,8 @@ const EditRuleSet = () => {
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input {...register("name")} id="name" />
+                <Input {...register("description.condition")} id="condition" />
+                <Input {...register("description.action")} id="action" />
                     
                     <div>
                         <label>
@@ -102,7 +111,7 @@ const EditRuleSet = () => {
                                 return (
                                     <li key={item.id}>
                                         <input
-                                            {...register(`body.${index}.name`, { required: true })}
+                                            {...register(`bodies.${index}.name`, { required: true })}
                                         />
 
                                         <Controller
@@ -113,7 +122,7 @@ const EditRuleSet = () => {
                                                 <option value="opel">Opel</option>
                                                 <option value="audi">Audi</option>
                                             </select>}
-                                            name={`body.${index}.type`}
+                                            name={`bodies.${index}.type`}
                                             control={control}
                                         />
                                         <button type="button" onClick={() => bodyRemove(index)}>

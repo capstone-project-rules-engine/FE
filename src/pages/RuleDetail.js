@@ -10,7 +10,7 @@ const RuleDetail = () => {
   const param = useParams()
   
   React.useEffect(() => {
-    getdata()
+    getdata(param.endpoint)
   }, [])
   // React.useEffect(() => {
   //   if (data) {
@@ -19,12 +19,12 @@ const RuleDetail = () => {
 
   // }, [data])
   const getdata = async (params) => {
-    const respon = await axios.get(`${process.env.REACT_APP_URL}/api/rule/${param.endpoint}`)
-    setData(respon.data)
+    const respon = await axios.get(`${process.env.REACT_APP_URL}/fetchSpecificRuleSet?ruleSetName=${params}`)
+    setData(respon.data.details)
   }
   // function getConditions() {
   //   if (data) {
-  //     const condition = data[0].rules.map((data) => {
+  //     const condition .rules.map((data) => {
   //       return data.conditions
   //     })
   //     const temp = condition.map((data) => {
@@ -48,15 +48,15 @@ console.log(data);
     <Layout>
       <section className='layout'>
         {
-          data && temp ?
+          data ?
             <div>
-              <p>{data[0]?.name}</p>
+              <p>{data?.name}</p>
               {/* <button onClick={() => handleOnclick(data[0].id)}>
                 delete
               </button> */}
               <div className='flex '>
                 {
-                  data[0]?.conditions.map((data, index) => {
+                  data?.conditions.map((data, index) => {
                     return (
                       <React.Fragment key={index}>
                         <p>{data.label}</p>
