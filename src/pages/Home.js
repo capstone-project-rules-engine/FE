@@ -52,7 +52,7 @@ export default function Home(props) {
         {
           data ?
             <>
-              <button onClick={() => navigate('/addrule')}>
+              <button onClick={() => navigate('/addruleset')}>
                 tambah data
               </button>
               <ul className={`space-y-5 ${styles.myCustomList}`}>
