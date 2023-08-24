@@ -75,14 +75,14 @@ export default function AddRuleSet() {
     setIsLoading(true)
     toast.promise(
       axios.post(`${process.env.REACT_APP_URL}/insertRuleTemplate`, data)
-      .then(() => {
-        setTimeout(() => {
+        .then(() => {
+          setTimeout(() => {
+            setIsLoading(false)
+            navigate('/')
+          }, 1000);
+        }).finally(() => {
           setIsLoading(false)
-          navigate('/')
-        }, 1000);
-      }).finally(()=>{
-        setIsLoading(false)
-      }),
+        }),
       {
         ...DEFAULT_TOAST_MESSAGE,
         success: "Ruleset Successfully Created",
@@ -96,19 +96,22 @@ export default function AddRuleSet() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label>Name</label>
-            <Input {...register("name")} id="name" />
+            <Input {...register("name", { required: true })} id="name" />
+            {errors.name?.type === 'required' && <p role="alert" className='text-rose-500'>Name is required</p>}
           </div>
           <div>
             <label>Deskripsi Kondisi</label>
-            <Input {...register("description.condition")} id="condition" />
+            <Input {...register("description.condition", { required: true })} id="condition" />
+            {errors.description?.condition.type === 'required' && <p role="alert" className='text-rose-500'>Deskripsi is required</p>}
           </div>
           <div>
             <label>Deskripsi Aksi</label>
-            <Input {...register("description.action")} id="action" />
+            <Input {...register("description.action", { required: true })} id="action" />
+            {errors.description?.action.type === 'required' && <p role="alert" className='text-rose-500'>Deskripsi is required</p>}
           </div>
-         
-          
-          
+
+
+
           <div className="form-section">
             <label>Body</label>
             <ul>
@@ -259,18 +262,18 @@ export default function AddRuleSet() {
               Tambah Action
             </button> */}
 
-<div>
-            <label>Atribute</label>
-            <Input {...register("action.attribute")} id="name" />
-          </div>
-          <div>
-            <label>Label</label>
-            <Input {...register("action.label")} id="condition" />
-          </div>
-          <div>
-            <label>Type</label>
-            <Input {...register("action.type")} id="action" />
-          </div>
+            <div>
+              <label>Atribute</label>
+              <Input {...register("action.attribute")} id="name" />
+            </div>
+            <div>
+              <label>Label</label>
+              <Input {...register("action.label")} id="condition" />
+            </div>
+            <div>
+              <label>Type</label>
+              <Input {...register("action.type")} id="action" />
+            </div>
           </div>
 
           <Button disabled={isLoading} fullWidth type="submit">

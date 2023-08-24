@@ -8,7 +8,7 @@ const RuleDetail = () => {
   const [conditions, setConditions] = React.useState()
   const [temp, setTemp] = React.useState()
   const param = useParams()
-  
+
   React.useEffect(() => {
     getdata(param.endpoint)
   }, [])
@@ -38,15 +38,9 @@ const RuleDetail = () => {
   //   }
   // }
 
-console.log(data);
-
-
-
-
-
   return (
     <Layout>
-      <section className='layout'>
+      <section className='layout min-h-screen'>
         {
           data ?
             <div>
@@ -60,8 +54,8 @@ console.log(data);
                     return (
                       <React.Fragment key={index}>
                         <p>{data.label}</p>
-                        
-                       
+
+
 
                       </React.Fragment>
                     )
