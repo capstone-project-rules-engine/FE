@@ -201,8 +201,11 @@ export default function AddRuleSet() {
             </button>
           </div>
 
+
+
+
           <div className="form-section">
-            <label>Body Action</label>
+            <label> Action</label>
             {/* <ul>
               {actionFields.map((item, index) => {
                 return (

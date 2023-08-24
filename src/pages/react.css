@@ -1,11 +1,9 @@
-/* Home.css */
+
 .layout {
     padding: 20px;
 }
 
-/* ... */
 
-/* Gaya tombol detail dan delete */
 .detail,
 .delete {
     background-color: #3085d6;
@@ -23,12 +21,13 @@
 }
 
 .delete {
-    background-color: #e74c3c;
+    background-color: #7a6461;
     margin-left: 10px; /* Memberikan jarak antara tombol delete dan detail */
 }
 
+
 .delete:hover {
-    background-color: #c0392b;
+    background-color: #000000;
 }
 
 .buttonGroup {
