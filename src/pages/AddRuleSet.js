@@ -8,6 +8,7 @@ import { Layout } from "../components/Layout";
 import { DEFAULT_TOAST_MESSAGE } from "../constant/toast";
 import "./AddRuleSet.css";
 import { useNavigate } from "react-router";
+import { apiMock } from "../lib/axios.mock";
 
 export default function AddRuleSet() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -74,7 +75,7 @@ export default function AddRuleSet() {
     data.endpoint = data.name.split(" ").join("")
     setIsLoading(true)
     toast.promise(
-      axios.post(`${process.env.REACT_APP_URL}/insertRuleTemplate`, data)
+      apiMock.post(`/insertRuleTemplate`, data)
         .then(() => {
           setTimeout(() => {
             setIsLoading(false)
@@ -169,11 +170,18 @@ export default function AddRuleSet() {
                       />
                     </div>
                     <div className="input-col">
-                      <input
-                        {...register(`conditions.${index}.operator`, {
-                          required: true,
-                        })}
-                        placeholder="Operator"
+                      <Controller
+                        render={({ field }) => (
+                          <select {...field} required>
+                            <option value="" disabled>
+                              Pilih
+                            </option>
+                            <option value=">">lebih</option>
+                            <option value="<">kurang</option>
+                          </select>
+                        )}
+                        name={`conditions.${index}.operator`}
+                        control={control}
                       />
                     </div>
                     <div className="input-col">
@@ -209,59 +217,6 @@ export default function AddRuleSet() {
 
           <div className="form-section">
             <label> Action</label>
-            {/* <ul>
-              {actionFields.map((item, index) => {
-                return (
-                  <li key={item.id} className="flex flex-wrap">
-                    <div className="input-col">
-                      <input
-                        {...register(`action.${index}.attribute`, {
-                          required: true,
-                        })}
-                        placeholder="Attribute"
-                      />
-                    </div>
-                    <div className="input-col">
-                      <Controller
-                        render={({ field }) => (
-                          <select {...field}>
-                            <option value="" disabled>
-                              Pilih
-                            </option>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
-                          </select>
-                        )}
-                        name={`action.${index}.type`}
-                        control={control}
-                      />
-                    </div>
-                    <div className="input-col">
-                      <input
-                        {...register(`action.${index}.label`, {
-                          required: true,
-                        })}
-                        placeholder="Label"
-                      />
-                    </div>
-                    <button type="button" onClick={() => actionRemove(index)}>
-                      Delete
-                    </button>
-                  </li>
-                );
-              })}
-            </ul> */}
-            {/* <button
-              type="button"
-              onClick={() => {
-                actionAppend({ attribute: "", type: "", label: "" });
-              }}
-            >
-              Tambah Action
-            </button> */}
-
             <div>
               <label>Atribute</label>
               <Input {...register("action.attribute")} id="name" />

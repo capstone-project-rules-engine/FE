@@ -24,18 +24,9 @@ ul {
 li {
   margin-bottom: 12px;
   align-items: center;
-  
+
 }
 
-li button {
-  margin-left: 8px;
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  cursor: pointer; 
-}
 
 
 
@@ -94,4 +85,3 @@ button[type="submit"]:hover {
   margin-left: 10px;
   margin-right: 10px;
 }
-

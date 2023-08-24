@@ -1,12 +1,13 @@
 import axios from 'axios'
 import * as React from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import Input from '../components/Input';
 import { Layout } from '../components/Layout';
 import Button from '../components/Button';
 import toast from 'react-hot-toast';
 import { DEFAULT_TOAST_MESSAGE } from '../constant/toast';
+import { apiMock } from '../lib/axios.mock';
 
 const EditRuleSet = () => {
     const [data, setData] = React.useState()
@@ -54,38 +55,38 @@ const EditRuleSet = () => {
     const onSubmit = (data) => {
         setIsloading(true)
         toast.promise(
-            axios.put(`${process.env.REACT_APP_URL}/updateRuleSet?ruleSetName=${data.endpoint}`, data)
-              .then(() => {
-                setTimeout(() => {
-                    setIsloading(false)
-                    navigate('/')
-                }, 1000);
-              }),
+            apiMock.put(`/updateRuleSet?ruleSetName=${data.endpoint}`, data)
+                .then(() => {
+                    setTimeout(() => {
+                        setIsloading(false)
+                        navigate('/')
+                    }, 1000);
+                }),
             {
-              ...DEFAULT_TOAST_MESSAGE,
-              success: 'Ruleset Successfully Edited',
+                ...DEFAULT_TOAST_MESSAGE,
+                success: 'Ruleset Successfully Edited',
             }
-          );
+        );
 
     }
 
     React.useEffect(() => {
         getdata(param.endpoint)
-    }, [])
+    }, [param.endpoint])
 
     React.useEffect(() => {
         if (data) {
             reset({
                 name: data.name,
-                description:data.description,
+                description: data.description,
                 bodies: data.bodies,
-                conditions:data.conditions,
-                action:data.action,
+                conditions: data.conditions,
+                action: data.action,
                 rules: data.rules,
-                endpoint : data.endpoint
+                endpoint: data.endpoint
             })
         }
-    }, [data])
+    }, [data, reset])
     const getdata = async (params) => {
         const respon = await axios.get(`${process.env.REACT_APP_URL}/fetchSpecificRuleSet?ruleSetName=${params}`)
         console.log(respon.data.details);
@@ -97,11 +98,11 @@ const EditRuleSet = () => {
         <Layout>
             <section className='layout'>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Input {...register("name")} id="name" />
-                <Input {...register("description.condition")} id="condition" />
-                <Input {...register("description.action")} id="action" />
-                    
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Input {...register("name")} id="name" />
+                    <Input {...register("description.condition")} id="condition" />
+                    <Input {...register("description.action")} id="action" />
+
                     <div>
                         <label>
                             Body
@@ -115,13 +116,15 @@ const EditRuleSet = () => {
                                         />
 
                                         <Controller
-                                            render={({ field }) => <select {...field}>
-                                                <option value="" disabled>pilih</option>
-                                                <option value="volvo">Volvo</option>
-                                                <option value="saab">Saab</option>
-                                                <option value="opel">Opel</option>
-                                                <option value="audi">Audi</option>
-                                            </select>}
+                                            render={({ field }) => (
+                                                <select {...field} required>
+                                                    <option value="" disabled>
+                                                        Pilih
+                                                    </option>
+                                                    <option value="number">Number</option>
+                                                    <option value="string">String</option>
+                                                </select>
+                                            )}
                                             name={`bodies.${index}.type`}
                                             control={control}
                                         />
@@ -151,31 +154,41 @@ const EditRuleSet = () => {
                             {conditionsFields.map((item, index) => {
                                 return (
                                     <li key={item.id} className="flex flex-wrap">
-                                        <div className="flex flex-col">
-                                        <label>
-                                            Atribute
-                                        </label>
-                                        <input
-                                            {...register(`conditions.${index}.attribute`, { required: true })}
-                                        />
+                                        <div className="input-col">
+                                            <input
+                                                {...register(`conditions.${index}.attribute`, {
+                                                    required: true,
+                                                })}
+                                                placeholder="Atribute"
+                                            />
                                         </div>
-                                        <div className="flex flex-col">
-                                        <label>
-                                            operator
-                                        </label>
-                                        <input
-                                            {...register(`conditions.${index}.operator`, { required: true })}
-                                        />
+                                        <div className="input-col">
+                                            <Controller
+                                                render={({ field }) => (
+                                                    <select {...field} required>
+                                                        <option value="" disabled>
+                                                            Pilih
+                                                        </option>
+                                                        <option value=">">lebih</option>
+                                                        <option value="<">kurang</option>
+                                                    </select>
+                                                )}
+                                                name={`conditions.${index}.operator`}
+                                                control={control}
+                                            />
                                         </div>
-                                        <div className="flex flex-col">
-                                        <label>
-                                            label
-                                        </label>
-                                        <input
-                                            {...register(`conditions.${index}.label`, { required: true })}
-                                        />
+                                        <div className="input-col">
+                                            <input
+                                                {...register(`conditions.${index}.label`, {
+                                                    required: true,
+                                                })}
+                                                placeholder="Label"
+                                            />
                                         </div>
-                                        <button type="button" onClick={() => conditionsRemove(index)}>
+                                        <button
+                                            type="button"
+                                            onClick={() => conditionsRemove(index)}
+                                        >
                                             Delete
                                         </button>
                                     </li>
@@ -197,64 +210,32 @@ const EditRuleSet = () => {
                         <label>
                             Tmabah Action
                         </label>
-                        
-                        
+
+
                     </div>
 
-                    <div>
-                        <label>
-                            Body
-                        </label>
-                        <ul>
-                            {actionFields.map((item, index) => {
-                                return (
-                                    <li key={item.id}>
-                                        <input
-                                            {...register(`action.${index}.attribute`, { required: true })}
-                                        />
-
-                                        <Controller
-                                            render={({ field }) => <select {...field}>
-                                                <option value="" disabled>pilih</option>
-                                                <option value="volvo">Volvo</option>
-                                                <option value="saab">Saab</option>
-                                                <option value="opel">Opel</option>
-                                                <option value="audi">Audi</option>
-                                            </select>}
-                                            name={`action.${index}.type`}
-                                            control={control}
-                                        />
-                                        <div className="flex flex-col">
-                                        <label>
-                                            label
-                                        </label>
-                                        <input
-                                            {...register(`action.${index}.label`, { required: true })}
-                                        />
-                                        </div>
-                                        <button type="button" onClick={() => actionRemove(index)}>
-                                            Delete
-                                        </button>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-
-                        <button
-                            type="button"
-                            onClick={() => {
-                                actionAppend({ attibute: "", type: "",label:"" });
-                            }}
-                        >
-                            Tambah action
-                        </button>
+                    <div className="form-section">
+                        <label> Action</label>
+                        <div>
+                            <label>Atribute</label>
+                            <Input {...register("action.attribute")} id="name" />
+                        </div>
+                        <div>
+                            <label>Label</label>
+                            <Input {...register("action.label")} id="condition" />
+                        </div>
+                        <div>
+                            <label>Type</label>
+                            <Input {...register("action.type")} id="action" />
+                        </div>
                     </div>
+
                     <Button disabled={isLoading} fullWidth type="submit">
                         Submit
                     </Button>
                 </form>
-                            
-                </section>
+
+            </section>
         </Layout>
     )
 }
