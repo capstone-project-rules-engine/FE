@@ -52,9 +52,11 @@ export default function Home(props) {
         {
           data ?
             <>
-              <button onClick={() => navigate('/addruleset')}>
-                tambah data
-              </button>
+              <div className={styles.addButtonContainer}> 
+        <button onClick={() => navigate('/addruleset')} className={`${styles.addButton}`}> 
+          tambah data
+        </button>
+      </div>
               <ul className={`space-y-5 ${styles.myCustomList}`}>
                 {data?.map((data, index) => {
                   return (
@@ -75,7 +77,9 @@ export default function Home(props) {
                   })} */}
                       </div>
                       <div className={`flex space-x-10 w-full ${styles.buttonGroup}`}>
-                        <button onClick={() => handleOnclick(data.endpoint)} className={`${styles.detail} ${styles.button}`}>
+                        
+                      </div>
+                      <button onClick={() => handleOnclick(data.endpoint)} className={`${styles.detail} ${styles.button}`}>
                           detail
                         </button>
                         <button onClick={() => handleOnedit(data.endpoint)} className={`${styles.delete} ${styles.button}`}>
@@ -84,7 +88,6 @@ export default function Home(props) {
                         <button onClick={() => handleOndelete(data.endpoint)} className={`${styles.delete} ${styles.button}`}>
                           delete
                         </button>
-                      </div>
                     </li>
                   )
                 })}
