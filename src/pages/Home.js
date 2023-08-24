@@ -82,7 +82,7 @@ export default function Home(props) {
         ) : data ? (
           <>
             <div className=' flex justify-end'>
-              <button className={`border p-2 rounded-md z-20 absolute`}
+              <button className={`border p-2 rounded-md mb-2`}
                 onClick={() => navigate('/addruleset')}
               >
                 tambah data
