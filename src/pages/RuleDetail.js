@@ -109,6 +109,23 @@ const RuleDetail = () => {
     setKey(key)
   }
 
+  function handleDelete(params) {
+    data?.rules.splice(params, 1)
+    console.log(data);
+    toast.promise(
+      apiMock.put(`/updateRuleSet?ruleSetName=${data?.endpoint}`, data)
+        .then(() => {
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000);
+        }),
+      {
+        ...DEFAULT_TOAST_MESSAGE,
+        success: "Ruleset Successfully Deleted",
+      }
+    );
+  }
+
 
 
 
@@ -172,6 +189,11 @@ const RuleDetail = () => {
                     }
                     <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap text-center'>
                       {data?.action ?? <p> </p>}
+                    </td>
+                    <td>
+                      <button onClick={() => handleDelete(index)}>
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 )
