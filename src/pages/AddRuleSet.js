@@ -62,17 +62,14 @@ export default function AddRuleSet() {
     control,
     name: "conditions",
   });
-  // const {
-  //   fields: actionFields,
-  //   append: actionAppend,
-  //   remove: actionRemove,
-  // } = useFieldArray({
-  //   control,
-  //   name: "action",
-  // });
 
   const onSubmit = (data) => {
     data.endpoint = data.name.split(" ").join("")
+    if (data.bodies == '') {
+      return toast.error("body tidak boleh kosong")
+    } if (data.conditions == '') {
+      return toast.error("condition tidak boleh kosong")
+    }
     setIsLoading(true)
     toast.promise(
       apiMock.post(`/insertRuleTemplate`, data)
