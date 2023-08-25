@@ -81,7 +81,7 @@ export default function Home() {
             className={`border p-2 rounded-md bg-blue-400 text-white`}
             onClick={() => navigate('/addruleset')}
           >
-            tambah data
+            Add data
           </button>
         )}
 
