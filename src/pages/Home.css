@@ -1,39 +1,41 @@
 /* Home.css */
 .layout {
-    padding: 20px;
-  }
-  
-  .addButtonContainer {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
-  
-  .addButton {
-    background-color: #2ecc71;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
-  .addButton:hover {
-    background-color: #27ae60;
-  }
-  
-  .myCustomList {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .listItem {
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between; /* Mengatur posisi detail, edit, dan delete */
-    align-items: center; /* Mengatur posisi tombol ke tengah vertikal */
-  }
-  
+  padding: 20px;
+}
+
+.addButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.addButton {
+  background-color: #2ecc71;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #27ae60;
+}
+
+.myCustomList {
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  /* Mengatur posisi detail, edit, dan delete */
+  align-items: center;
+  /* Mengatur posisi tombol ke tengah vertikal */
+}
+
 .listItem button.detail,
 .listItem button.edit,
 .listItem button.delete {
@@ -52,16 +54,15 @@
 
 .listItem button.detail {
   background-color: #3498db;
-  margin-left: auto; 
+  margin-left: auto;
 }
 
 .listItem button.edit {
   background-color: #e67e22;
-  margin-right: 5px; 
+  margin-right: 5px;
 }
 
 .listItem button.delete {
   background-color: #e74c3c;
-  margin-left: 5px; 
+  margin-left: 5px;
 }
-  

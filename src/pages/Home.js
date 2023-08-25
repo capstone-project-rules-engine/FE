@@ -23,9 +23,7 @@ export default function Home() {
 
   async function getData() {
     try {
-      const response = await apiMock.get(
-        `/fetchRules`,
-      )
+      const response = await apiMock.get(`/fetchRules`)
       setData(response.data.details)
       setIsLoading(false)
     } catch (error) {
@@ -45,9 +43,7 @@ export default function Home() {
 
   function onDelete() {
     toast.promise(
-      apiMock.delete(
-        `/deleteRuleSet?ruleSetName=${endpoint}`,
-      ).then(() => {
+      apiMock.delete(`/deleteRuleSet?ruleSetName=${endpoint}`).then(() => {
         setTimeout(() => {
           window.location.reload()
         }, 1000)
@@ -57,7 +53,6 @@ export default function Home() {
         success: 'Rule Successfully Deleted',
       },
     )
-
   }
 
   function handleOnedit(params) {
@@ -69,7 +64,7 @@ export default function Home() {
       <section className='layout min-h-screen flex flex-col'>
         {!data && (
           <button
-            className={`border p-2 rounded-md`}
+            className={`border p-2 rounded-md bg-blue-400 text-white`}
             onClick={() => navigate('/addruleset')}
           >
             tambah data
@@ -82,7 +77,7 @@ export default function Home() {
           <>
             <div className=' flex justify-end'>
               <button
-                className={`border p-2 rounded-md mb-2`}
+                className={`border p-2 rounded-md bg-blue-400 text-white`}
                 onClick={() => navigate('/addruleset')}
               >
                 tambah data
@@ -96,7 +91,9 @@ export default function Home() {
                 >
                   <div className='w-3/4'>
                     <p className='h3'>{item.name}</p>
-                    <p>Endpoint: {`//execInput?ruleSetName=${item.endpoint}`}</p>
+                    <p>
+                      Endpoint: {`//execInput?ruleSetName=${item.endpoint}`}
+                    </p>
                     <p className='h3'>Body</p>
                     {item.bodies.map((body, idx) => (
                       <div key={idx} className={`flex ${styles.dataItem}`}>
@@ -108,7 +105,10 @@ export default function Home() {
                   <div
                     className={`flex space-x-10 w-full ${styles.buttonGroup}`}
                   ></div>
-                  <button className='ml-[8px] bg-blue-400 rounded-md text-white cursor-pointer p-1' onClick={() => handleOnclick(item.endpoint)}>
+                  <button
+                    className='ml-[8px] bg-blue-400 rounded-md text-white cursor-pointer p-1'
+                    onClick={() => handleOnclick(item.endpoint)}
+                  >
                     detail
                   </button>
                   <button
