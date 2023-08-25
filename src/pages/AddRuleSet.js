@@ -103,12 +103,12 @@ export default function AddRuleSet() {
           <div>
             <label>Description Condition</label>
             <Input {...register("description.condition", { required: true })} id="condition" />
-            {errors.description?.condition?.type === 'required' && <p role="alert" className='text-rose-500'>Deskripsi is required</p>}
+            {errors.description?.condition?.type === 'required' && <p role="alert" className='text-rose-500'>Description is required</p>}
           </div>
           <div>
             <label>Description Action</label>
             <Input {...register("description.action", { required: true })} id="action" />
-            {errors.description?.action?.type === 'required' && <p role="alert" className='text-rose-500'>Deskripsi is required</p>}
+            {errors.description?.action?.type === 'required' && <p role="alert" className='text-rose-500'>Description is required</p>}
           </div>
 
           <div className="form-section">

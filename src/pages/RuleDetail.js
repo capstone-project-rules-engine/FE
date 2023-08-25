@@ -150,10 +150,10 @@ const RuleDetail = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="font-bold text-center " colSpan={key?.length}>
-                      condition
+                      Condition
                     </th>
                     <th className="font-bold text-center " colSpan={1}>
-                      action
+                      Action
                     </th>
                     <th className="font-bold text-center " colSpan={1}>
                       Edit
@@ -214,7 +214,7 @@ const RuleDetail = () => {
               </table>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-section">
-                  <label>Tambah Rules </label>
+                  <label>Add Rules </label>
                   <ul>
 
                     {rulessFields.map((item, index) => {
@@ -274,7 +274,7 @@ const RuleDetail = () => {
                       rulessAppend({ conditions: "", action: "" });
                     }}
                   >
-                    Tambah body
+                    Add body
                   </button>
                 </div>
                 <Button fullWidth type="submit">

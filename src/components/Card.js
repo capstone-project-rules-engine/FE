@@ -24,19 +24,19 @@ const Card = ({ data, onDetail, onEdit, onDelete }) => {
             className='ml-[8px] h-10 bg-blue-400 rounded-md hover:bg-blue-600 text-white cursor-pointer p-1'
             onClick={() => onDetail(data.endpoint)}
           >
-            detail
+            Detail
           </button>
           <button
             onClick={() => onEdit(data.endpoint)}
             className={` ml-[8px] h-10 bg-blue-400 hover:bg-blue-600 rounded-md text-white cursor-pointer p-1`}
           >
-            edit
+            Edit
           </button>
           <button
             onClick={() => onDelete(data.endpoint)}
             className={` ml-[8px] h-10 bg-red-400 hover:bg-red-600 rounded-md text-white cursor-pointer p-1`}
           >
-            delete
+            Delete
           </button>
         </div>
       </div>

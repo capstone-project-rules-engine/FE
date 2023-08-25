@@ -96,7 +96,7 @@ export default function Home() {
                 className={`border p-2 rounded-md bg-blue-400 hover:bg-blue-600 text-white`}
                 onClick={() => navigate('/addruleset')}
               >
-                tambah data
+                Add data
               </button>
 
             </div>
