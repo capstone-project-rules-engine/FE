@@ -53,7 +53,6 @@ const RuleDetail = () => {
   });
 
   const onSubmit = (data) => {
-
     let newdata = data
     const temp = newdata.rules.map((data) => {
       return data
@@ -84,14 +83,17 @@ const RuleDetail = () => {
 
     // console.log(obj)
     // console.log(newData);
-    console.log(temp);
+    // console.log(temp);
+    if (temp.length == 0) {
+      return toast.error("Tidak boleh kosong")
+    }
 
     toast.promise(
       apiMock.patch(`/insertRuletoRuleSet?ruleSetName=${param.endpoint}`, temp)
         .then(() => {
           setTimeout(() => {
             window.location.reload()
-          }, 1000);
+          }, 2000);
         }),
       {
         ...DEFAULT_TOAST_MESSAGE,
@@ -120,7 +122,7 @@ const RuleDetail = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="font-bold text-center " colSpan={2}>
+              <th className="font-bold text-center " colSpan={key?.length}>
                 condition
               </th>
               <th className="font-bold text-center " colSpan={1}>
@@ -163,13 +165,13 @@ const RuleDetail = () => {
                       key?.map((isi, num) => {
                         return (
                           <td key={num} className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap text-center'>
-                            {data?.conditions?.[isi] ?? <p> null</p>}
+                            {data?.conditions?.[isi] ?? <p> </p>}
                           </td>
                         )
                       })
                     }
                     <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap text-center'>
-                      {data?.action ?? <p> null</p>}
+                      {data?.action ?? <p> </p>}
                     </td>
                   </tr>
                 )
