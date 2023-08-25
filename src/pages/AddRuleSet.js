@@ -66,9 +66,9 @@ export default function AddRuleSet() {
   const onSubmit = (data) => {
     data.endpoint = data.name.split(" ").join("")
     if (data.bodies == '') {
-      return toast.error("body tidak boleh kosong")
+      return toast.error("body cannot be empty")
     } if (data.conditions == '') {
-      return toast.error("condition tidak boleh kosong")
+      return toast.error("condition cannot be empty")
     }
     setIsLoading(true)
     toast.promise(
