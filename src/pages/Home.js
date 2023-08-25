@@ -77,7 +77,7 @@ export default function Home() {
           <>
             <div className=' flex justify-end'>
               <button
-                className={`border p-2 rounded-md bg-blue-400 text-white`}
+                className={`border p-2 rounded-md bg-blue-400 hover:bg-blue-600 text-white`}
                 onClick={() => navigate('/addruleset')}
               >
                 tambah data
@@ -106,20 +106,20 @@ export default function Home() {
                     className={`flex space-x-10 w-full ${styles.buttonGroup}`}
                   ></div>
                   <button
-                    className='ml-[8px] bg-blue-400 rounded-md text-white cursor-pointer p-1'
+                    className='ml-[8px] bg-blue-400 rounded-md hover:bg-blue-600 text-white cursor-pointer p-1'
                     onClick={() => handleOnclick(item.endpoint)}
                   >
                     detail
                   </button>
                   <button
                     onClick={() => handleOnedit(item.endpoint)}
-                    className={`${styles.delete} ml-[8px] bg-blue-400 rounded-md text-white cursor-pointer p-1`}
+                    className={`${styles.delete} ml-[8px] bg-blue-400 hover:bg-blue-600 rounded-md text-white cursor-pointer p-1`}
                   >
                     edit
                   </button>
                   <button
                     onClick={() => handleOndelete(item.endpoint)}
-                    className={`${styles.delete} ml-[8px] bg-red-400 rounded-md text-white cursor-pointer p-1`}
+                    className={`${styles.delete} ml-[8px] bg-red-400 hover:bg-red-600 rounded-md text-white cursor-pointer p-1`}
                   >
                     delete
                   </button>

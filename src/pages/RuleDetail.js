@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Layout } from '../components/Layout'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { apiMock } from '../lib/axios.mock'
 import toast from 'react-hot-toast'
 import { useForm, useFieldArray, Controller } from "react-hook-form";
@@ -12,6 +12,7 @@ const RuleDetail = () => {
   const [data, setData] = useState(null)
   const [key, setKey] = useState()
   const param = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     getData(param.endpoint)
@@ -34,6 +35,7 @@ const RuleDetail = () => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -88,6 +90,7 @@ const RuleDetail = () => {
       apiMock.patch(`/insertRuletoRuleSet?ruleSetName=${param.endpoint}`, temp)
         .then(() => {
           setTimeout(() => {
+            window.location.reload()
           }, 1000);
         }),
       {
@@ -109,61 +112,75 @@ const RuleDetail = () => {
 
   return (
     <Layout>
+
       <section className='layout min-h-screen'>
-        {data ? (
-          <div className='space-x-4'>
-            <p>{data.name}</p>
-            <div className='flex'>
-              {data.conditions.map((condition, index) => (
-                <p key={index}>{condition.label}
-
-                </p>
+        <button onClick={() => navigate(-1)} className="border shadow-md rounded-md p-2 w-28 mb-5">
+          Back
+        </button>
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="font-bold text-center " colSpan={2}>
+                condition
+              </th>
+              <th className="font-bold text-center " colSpan={1}>
+                action
+              </th>
+              <th className="font-bold text-center " colSpan={1}>
+                Edit
+              </th>
+            </tr>
+            <tr>
+              {data?.conditions?.map((condition, index) => (
+                <th key={index}
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-center text-gray-500 "
+                >
+                  {condition.label}
+                </th>
               ))}
+              <th
+                scope="col"
+                className="px-6 py-3 text-xs font-bold text-center text-gray-500 "
+              >
+                {data?.action?.label}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+              >
+                Delete
+              </th>
+            </tr>
+          </thead>
+          <tbody>
 
-              <p>{data.action.label}</p>
+            {
+              data?.rules?.map((data, index) => {
+                return (
+                  <tr key={index}>
+                    {
+                      key?.map((isi, num) => {
+                        return (
+                          <td key={num} className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap text-center'>
+                            {data?.conditions?.[isi] ?? <p> null</p>}
+                          </td>
+                        )
+                      })
+                    }
+                    <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap text-center'>
+                      {data?.action ?? <p> null</p>}
+                    </td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
 
-            </div>
-            <div className='flex'>
-              <div>
-                {
-                  data.rules.map((data, index) => {
-                    return (
-                      <div className='flex '>
-                        {
-                          key?.map((isi, num) => {
-                            return (
-                              <p key={num}>
-                                {data?.conditions?.[isi] ?? <p> null</p>}
-                              </p>
-                            )
-                          })
-                        }</div>
-                    )
-                  })
-                }
-              </div>
-              <div>
-                {
-                  data.rules.map((data, index) => {
-                    return (
-                      <div className='flex'>
-                        <p>{data.action}</p>
-                      </div>
-                    )
-                  })
-                }
-              </div>
-
-            </div>
-
-          </div>
-        ) : (
-          <p>Loading</p>
-        )}
-
+        </table>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-section">
-            <label>Body</label>
+            <label>Tambah Rules </label>
             <ul>
 
               {rulessFields.map((item, index) => {
@@ -173,13 +190,17 @@ const RuleDetail = () => {
                       {
                         key?.map((data, num) => {
                           return (
-                            <input key={num}
-                              {...register(`rules.${index}.conditions.${data}`)}
-                              placeholder="Isi Field"
-                            />
+                            <>
+                              <p>Conditions {num + 1}</p>
+                              <input key={num}
+                                {...register(`rules.${index}.conditions.${data}`)}
+                                placeholder="Isi Field"
+                              />
+                            </>
                           )
                         })
                       }
+                      <p>Action</p>
                       <input
                         {...register(`rules.${index}.action`, { required: true })}
                         placeholder="Isi Field"

@@ -95,10 +95,25 @@ const EditRuleSet = () => {
   return (
     <Layout>
       <section className='layout'>
+        <button onClick={() => navigate(-1)} className="border shadow-md rounded-md p-2 w-28 mb-5">
+          Back
+        </button>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input {...register('name')} id='name' />
-          <Input {...register('description.condition')} id='condition' />
-          <Input {...register('description.action')} id='action' />
+          <div>
+            <label>Name</label>
+            <Input {...register("name", { required: true })} id="name" />
+            {errors.name?.type === 'required' && <p role="alert" className='text-rose-500'>Name is required</p>}
+          </div>
+          <div>
+            <label>Deskripsi Kondisi</label>
+            <Input {...register("description.condition", { required: true })} id="condition" />
+            {errors.description?.condition?.type === 'required' && <p role="alert" className='text-rose-500'>Deskripsi is required</p>}
+          </div>
+          <div>
+            <label>Deskripsi Aksi</label>
+            <Input {...register("description.action", { required: true })} id="action" />
+            {errors.description?.action?.type === 'required' && <p role="alert" className='text-rose-500'>Deskripsi is required</p>}
+          </div>
 
           <div>
             <label>Body</label>
@@ -148,14 +163,17 @@ const EditRuleSet = () => {
                 return (
                   <li key={item.id} className='flex flex-wrap'>
                     <div className='input-col'>
+                      <label>Atribute</label>
                       <input
                         {...register(`conditions.${index}.attribute`, {
                           required: true,
                         })}
                         placeholder='Atribute'
                       />
+                      {errors.conditions?.[index].attribute?.type === 'required' && <p role="alert" className='text-rose-500'>Atribute is required</p>}
                     </div>
                     <div className='input-col'>
+                      <label>Operator</label>
                       <Controller
                         render={({ field }) => (
                           <select {...field} required>
@@ -169,14 +187,19 @@ const EditRuleSet = () => {
                         name={`conditions.${index}.operator`}
                         control={control}
                       />
+                      {errors.conditions?.[index].operator?.type === 'required' && <p role="alert" className='text-rose-500'>Operator is required</p>}
                     </div>
                     <div className='input-col'>
+                      <label>
+                        Label
+                      </label>
                       <input
                         {...register(`conditions.${index}.label`, {
                           required: true,
                         })}
                         placeholder='Label'
                       />
+                      {errors.conditions?.[index].label?.type === 'required' && <p role="alert" className='text-rose-500'>Label is required</p>}
                     </div>
                     <button
                       type='button'
@@ -204,22 +227,25 @@ const EditRuleSet = () => {
           </div>
 
           <div className='form-section'>
-            <label> Action</label>
+            <label className="h2"> Action</label>
             <div>
               <label>Atribute</label>
-              <Input {...register('action.attribute')} id='name' />
+              <Input {...register("action.attribute", { required: true })} id="atrribute" />
+              {errors.action?.attribute?.type === 'required' && <p role="alert" className='text-rose-500'>attribute is required</p>}
             </div>
             <div>
               <label>Label</label>
-              <Input {...register('action.label')} id='condition' />
+              <Input {...register("action.label", { required: true })} id="label" />
+              {errors.action?.label?.type === 'required' && <p role="alert" className='text-rose-500'>attribute is required</p>}
             </div>
             <div>
               <label>Type</label>
-              <Input {...register('action.type')} id='action' />
+              <Input {...register("action.type", { required: true })} id="type" />
+              {errors.action?.type?.type === 'required' && <p role="alert" className='text-rose-500'>attribute is required</p>}
             </div>
           </div>
 
-          <Button disabled={isLoading} fullWidth type='submit'>
+          <Button disabled={isLoading} fullWidth type="submit">
             Submit
           </Button>
         </form>
