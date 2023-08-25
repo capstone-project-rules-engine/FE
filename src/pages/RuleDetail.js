@@ -132,8 +132,19 @@ const RuleDetail = () => {
         {
           isLoading ? <Loading /> :
             <>
-              <div>
-                <p>{data?.name}</p>
+              <div className='mb-6'>
+                <div className='flex'>
+                  <p className='h4'>Rule Name: </p>
+                  <p className='h4'>{data?.name}</p>
+                </div>
+                <div className='flex'>
+                  <p className='h4'>Description Condition: </p>
+                  <p className='h4'>{data?.description.condition}</p>
+                </div>
+                <div className='flex'>
+                  <p className='h4'>Description Action: </p>
+                  <p className='h4'>{data?.description.action}</p>
+                </div>
               </div>
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
