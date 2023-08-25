@@ -1,9 +1,9 @@
-import './App.css';
+import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import AddRuleSet from './pages/AddRuleSet';
-import Home from './pages/Home';
-import RuleDetail from './pages/RuleDetail';
-import EditRuleSet from './pages/EditRuleSet';
+import AddRuleSet from './pages/AddRuleSet'
+import Home from './pages/Home'
+import RuleDetail from './pages/RuleDetail'
+import EditRuleSet from './pages/EditRuleSet'
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <Route path='/editruleset/:endpoint' element={<EditRuleSet />} />
       <Route path='/rule/:endpoint' element={<RuleDetail />} />
     </Routes>
-  );
+  )
 }
 
-export default App;
+export default App
