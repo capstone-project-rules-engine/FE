@@ -9,7 +9,7 @@ const Card = ({ data, onDetail, onEdit, onDelete }) => {
         <div className='w-3/4'>
           <p className='h3'>{data.name}</p>
           <p>
-            Endpoint: {`//execInput?ruleSetName=${data.endpoint}`}
+            Endpoint: {`${process.env.REACT_APP_URL}/execInput?ruleSetName=${data.endpoint}`}
           </p>
           <p className='h3'>Body</p>
           {data.bodies.map((body, idx) => (
