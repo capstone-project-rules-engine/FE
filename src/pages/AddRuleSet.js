@@ -101,12 +101,12 @@ export default function AddRuleSet() {
             {errors.name?.type === 'required' && <p role="alert" className='text-rose-500'>Name is required</p>}
           </div>
           <div>
-            <label>Deskripsi Kondisi</label>
+            <label>Description Condition</label>
             <Input {...register("description.condition", { required: true })} id="condition" />
             {errors.description?.condition?.type === 'required' && <p role="alert" className='text-rose-500'>Deskripsi is required</p>}
           </div>
           <div>
-            <label>Deskripsi Aksi</label>
+            <label>Description Action</label>
             <Input {...register("description.action", { required: true })} id="action" />
             {errors.description?.action?.type === 'required' && <p role="alert" className='text-rose-500'>Deskripsi is required</p>}
           </div>
@@ -133,10 +133,11 @@ export default function AddRuleSet() {
                           render={({ field }) => (
                             <select {...field} required>
                               <option value="" disabled>
-                                Pilih
+                                Choose
                               </option>
                               <option value="number">Number</option>
                               <option value="string">String</option>
+                              <option value='bool'>Boolean</option>
                             </select>
                           )}
                           name={`bodies.${index}.type`}
@@ -159,7 +160,7 @@ export default function AddRuleSet() {
                 bodyAppend({ name: "", type: "" });
               }}
             >
-              Tambah body
+              Add body
             </button>
           </div>
 
@@ -186,11 +187,15 @@ export default function AddRuleSet() {
                       <Controller
                         render={({ field }) => (
                           <select {...field} required>
-                            <option value="" disabled>
-                              Pilih
+                            <option value='' disabled>
+                              Choose
                             </option>
-                            <option value=">">lebih</option>
-                            <option value="<">kurang</option>
+                            <option value='>'>Greater than</option>
+                            <option value='>='>Greater than equal</option>
+                            <option value='<'>Less than</option>
+                            <option value='<='>Less than equal</option>
+                            <option value='='>Equal</option>
+                            <option value='!='>Not equal</option>
                           </select>
                         )}
                         name={`conditions.${index}.operator`}
@@ -227,7 +232,7 @@ export default function AddRuleSet() {
                 conditionsAppend({ attribute: "", operator: "", label: "" });
               }}
             >
-              Tambah conditions
+              Add Conditions
             </button>
           </div>
 
@@ -244,12 +249,25 @@ export default function AddRuleSet() {
             <div>
               <label>Label</label>
               <Input {...register("action.label", { required: true })} id="label" />
-              {errors.action?.label?.type === 'required' && <p role="alert" className='text-rose-500'>attribute is required</p>}
+              {errors.action?.label?.type === 'required' && <p role="alert" className='text-rose-500'>label is required</p>}
             </div>
             <div>
               <label>Type</label>
-              <Input {...register("action.type", { required: true })} id="type" />
-              {errors.action?.type?.type === 'required' && <p role="alert" className='text-rose-500'>attribute is required</p>}
+              <Controller
+                render={({ field }) => (
+                  <select {...field} required>
+                    <option value='' disabled>
+                      Choose
+                    </option>
+                    <option value='number'>Number</option>
+                    <option value='string'>String</option>
+                    <option value='bool'>Boolean</option>
+                  </select>
+                )}
+                name={`action.type`}
+                control={control}
+              />
+              {errors.action?.type?.type === 'required' && <p role="alert" className='text-rose-500'>Type is required</p>}
             </div>
           </div>
 

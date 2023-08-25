@@ -148,7 +148,7 @@ export default function Home() {
         ) : (
           <div className='h-screen flex justify-center items-center'>
             <div className='h-28 animate-bounce'>
-              <p>Oopssiii kamu belum punya rule nichh...</p>
+              <p>You don't have rules yet</p>
             </div>
           </div>
         )}
