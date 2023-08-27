@@ -4,6 +4,7 @@ import AddRuleSet from './pages/AddRuleSet'
 import Home from './pages/Home'
 import RuleDetail from './pages/RuleDetail'
 import EditRuleSet from './pages/EditRuleSet'
+import PageNotFound from './pages/PageNotFound'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path='/addruleset' element={<AddRuleSet />} />
       <Route path='/editruleset/:endpoint' element={<EditRuleSet />} />
       <Route path='/rule/:endpoint' element={<RuleDetail />} />
+      <Route path='*' element={<PageNotFound />} />
     </Routes>
   )
 }
