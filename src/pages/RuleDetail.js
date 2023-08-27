@@ -1,49 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import { Layout } from '../components/Layout'
-import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiMock } from '../lib/axios.mock'
 import toast from 'react-hot-toast'
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import Button from '../components/Button'
 import { DEFAULT_TOAST_MESSAGE } from '../constant/toast';
 import Loading from '../components/Loading'
 import MyModal from '../components/DialogModal'
 
 const RuleDetail = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
   const [key, setKey] = useState()
+  const [condition, setCondition] = useState()
   const [isLoading, setIsLoading] = useState(true)
   const param = useParams()
   const [isOpen, setIsOpen] = useState(false)
   const [index, setIndex] = useState()
   const navigate = useNavigate()
 
+
+
   useEffect(() => {
-    getData(param.endpoint)
+    const getData = async (endpoint) => {
+      try {
+        setData(null)
+        const response = await apiMock.get(
+          `/fetchSpecificRuleSet?ruleSetName=${endpoint}`,
+        )
+        setData(response.data.details)
+        getkey(response.data.details)
+        setIsLoading(false)
+        // console.log(response.data.details);
+      } catch (error) {
+        setIsLoading(false)
+        toast.error(error)
+      }
+    }
+    getData(param?.endpoint)
   }, [param.endpoint])
 
-  const getData = async (endpoint) => {
-    try {
-      const response = await apiMock.get(
-        `/fetchSpecificRuleSet?ruleSetName=${endpoint}`,
-      )
-      setData(response.data.details)
-      getkey(response.data.details)
-      setIsLoading(false)
-      console.log(response.data.details);
-    } catch (error) {
-      setIsLoading(false)
-      toast.error(error)
-    }
-  }
+
 
   const {
     register,
     handleSubmit,
     control,
-    reset,
-    formState: { errors },
   } = useForm({
     defaultValues: {
       rules: [],
@@ -60,20 +62,21 @@ const RuleDetail = () => {
   });
 
   const onSubmit = (data) => {
+    console.log(data);
     let newdata = data
     const temp = newdata.rules.map((data) => {
       return data
     })
 
-    temp.map((data) => {
-      Object.keys(data.conditions).forEach(key => {
+    temp?.map((data) => {
+      return Object.keys(data.conditions).forEach(key => {
         if (data.conditions[key] === "") {
           delete data.conditions[key];
         }
       });
     })
-    if (temp.length == 0) {
-      return toast.error("Tidak boleh kosong")
+    if (temp.length === 0) {
+      return toast.error("cannot be empty")
     }
 
     toast.promise(
@@ -92,9 +95,16 @@ const RuleDetail = () => {
 
   function getkey(params) {
     const key = params.conditions.map((condition) => (
-      condition.label
+      condition
     ))
     setKey(key)
+  }
+
+  function getIndex(params) {
+    const res = data?.bodies.map((data) => {
+      return data.name
+    })
+    return res.indexOf(params)
   }
 
   function handleDelete(params) {
@@ -192,7 +202,7 @@ const RuleDetail = () => {
                             key?.map((isi, num) => {
                               return (
                                 <td key={num} className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap text-center'>
-                                  {data?.conditions?.[isi] ?? <p> </p>}
+                                  {data?.conditions?.[isi.label] ?? <p> </p>}
                                 </td>
                               )
                             })
@@ -224,37 +234,37 @@ const RuleDetail = () => {
                             {
                               key?.map((key, num) => {
                                 return (
-                                  <>
-                                    <p>{key}</p>
+                                  <React.Fragment key={num}>
+                                    <p>{key.label}</p>
                                     {
-                                      data?.bodies?.[num].type == "bool" ?
-                                        <select {...register(`rules.${index}.conditions.${key}`)}>
+                                      data?.bodies?.[getIndex(key.attribute)].type === 'bool' ?
+                                        <select {...register(`rules.${index}.conditions.${key.label}`)}>
                                           <option value='' disabled>
                                             Choose
                                           </option>
                                           <option value='true'>True</option>
                                           <option value='false'>False</option>
                                         </select>
-                                        : <input type={data?.bodies?.[num].type} key={num}
-                                          {...register(`rules.${index}.conditions.${key}`)}
+                                        : <input type={data?.bodies?.[getIndex(key.attribute)].type} key={num}
+                                          {...register(`rules.${index}.conditions.${key.label}`)}
                                           placeholder="Isi Field"
                                         />
                                     }
 
-                                  </>
+                                  </React.Fragment>
                                 )
                               })
                             }
-                            <p>{data.action.label}</p>
+                            <p>{data?.action?.label}</p>
                             {
-                              data.action.type == "bool" ?
+                              data?.action?.type === "bool" ?
                                 <select {...register(`rules.${index}.action`, { required: true })} required>
                                   <option value='' disabled>
                                     Choose
                                   </option>
                                   <option value='true'>True</option>
                                   <option value='false'>False</option>
-                                </select> : <input type={data.action.type}
+                                </select> : <input type={data?.action?.type}
                                   {...register(`rules.${index}.action`, { required: true })}
                                   placeholder="Isi Field"
                                 />

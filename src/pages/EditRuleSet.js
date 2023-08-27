@@ -88,7 +88,7 @@ const EditRuleSet = () => {
     const respon = await axios.get(
       `${process.env.REACT_APP_URL}/fetchSpecificRuleSet?ruleSetName=${params}`,
     )
-    console.log(respon.data.details)
+    // console.log(respon.data.details)
     setData(respon.data.details)
   }
 
